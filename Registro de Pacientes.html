@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FisioSport</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 10px;
+            color: #333;
+            font-size: 13px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .form-columns {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .form-section {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+        .form-section h2 {
+            margin-top: 0;
+            color: #2980b9;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .form-group {
+            margin-bottom: 8px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 3px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 0.9em;
+        }
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 0.9em;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            height: 50px;
+            resize: vertical;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 5px;
+        }
+        .checkbox-group label {
+            font-weight: normal;
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-group input {
+            margin-right: 5px;
+        }
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #ecf0f1;
+        }
+        .action-bar button {
+            padding: 7px 12px;
+            border: none;
+            border-radius: 3px;
+            font-weight: 600;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0;
+            font-size: 0.85em;
+        }
+        table th {
+            background-color: #3498db;
+            color: white;
+            padding: 5px;
+            text-align: left;
+        }
+        table td {
+            padding: 2px;
+            border: 1px solid #ddd;
+        }
+        table input {
+            width: 100%;
+            padding: 2px;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            font-size: 0.85em;
+        }
+        @media print {
+            body {
+                padding: 0;
+                font-size: 11px;
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                padding: 5mm;
+                width: 100%;
+                margin: 0;
+            }
+            .action-bar {
+                display: none;
+            }
+            .form-section {
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FISIOSPORT - REGISTRO DE CLIENTES</h1>
+        
+        <form id="patientForm" action="Registro.php" method="POST">
+            <!-- Primera fila: Datos personales y médicos -->
+            <div class="form-columns">
+                <!-- Columna 1: Datos personales -->
+                <div class="form-section">
+                    <h2>DATOS PERSONALES</h2>
+                    <div class="form-group">
+                        <label for="name">Nombre completo</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-row" style="display: flex; gap: 8px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label for="dni">DNI/Cedula</label>
+                            <input type="text" id="dni" required>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label for="birthdate">F. Nacimiento</label>
+                            <input type="date" id="birthdate" required>
+                        </div>
+                    </div>
+                    <div class="form-row" style="display: flex; gap: 8px;">
+                        <div class="form-group" style="width: 50px;">
+                            <label for="age">Edad</label>
+
+                            <input type="number" id="age" min="0" required>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Género</label>
+                            <div class="checkbox-group">
+                                <label><input type="radio" name="gender" value="M" required> M</label>
+                                <label><input type="radio" name="gender" value="F"> F</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="insurance">Seguro médico</label>
+                        <input type="text" id="insurance" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Ciudad</label>
+                        <input type="text" id="address" required>
+                    </div>
+                    <div class="form-row" style="display: flex; gap: 8px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label for="phone">Teléfono</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label for="email">Email</label>
+                            <input type="email" id="email">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Datos médicos -->
+                <div class="form-section">
+                    <h2>DATOS MÉDICOS</h2>
+                    <div class="form-group">
+                        <label for="admissionDate">Fecha ingreso</label>
+                        <input type="date" id="admissionDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="doctor">Médico tratante</label>
+                        <input type="text" id="doctor" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Motivo consulta</label>
+                        <input type="text" id="reason" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="diagnosis">Diagnóstico principal</label>
+                        <textarea id="diagnosis" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Antecedentes</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="history" value="Diabetes"> Diabetes</label>
+                            <label><input type="checkbox" name="history" value="Hipertensión"> Hipertensión</label>
+                            <label><input type="checkbox" name="history" value="Cirugías"> Cirugías</label>
+			    <label><input type="checkbox" name="history" value="Alergia"> Alergia</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Segunda fila: Evaluación y tratamiento -->
+            <div class="form-columns">
+                <!-- Columna 1: Evaluación inicial -->
+                <div class="form-section">
+                    <h2>EVALUACIÓN INICIAL</h2>
+                    <div class="form-group">
+                        <label>Área a tratar</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="area" value="Hombro"> Hombro</label>
+                            <label><input type="checkbox" name="area" value="Rodilla"> Rodilla</label>
+                            <label><input type="checkbox" name="area" value="Columna"> Columna</label>
+                            <label><input type="checkbox" name="area" value="Tobillo"> Tobillo</label>
+			    <label><input type="checkbox" name="area" value="Codo"> Codo</label>
+			    <label><input type="checkbox" name="area" value="Cadera"> Cadera</label>
+			    <label><input type="checkbox" name="area" value="Manos"> Manos</label>	
+                        </div>
+                    </div>
+                    <div class="form-row" style="display: flex; gap: 9px;">
+                        <div class="form-group" style="width: 60px;">
+                            <label for="pain">Dolor</label>
+                            <input type="number" id="pain" min="0" max="10">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label for="movement">Rango movimiento</label>
+                            <input type="text" id="movement">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="limitations">Limitaciones funcionales</label>
+                        <textarea id="limitations"></textarea>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Plan de tratamiento -->
+                <div class="form-section">
+                    <h2>PLAN DE TRATAMIENTO</h2>
+                    <div class="form-group">
+                        <label for="frequency">Frecuencia sesiones</label>
+                        <input type="text" id="frequency" placeholder="Ej: 3/semana">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de terapia</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="therapy" value="Ultrasonido"> Ultrasonido</label>
+                            <label><input type="checkbox" name="therapy" value="Tens"> Tens</label>
+                            <label><input type="checkbox" name="therapy" value="Laser"> Laser</label>
+			    <label><input type="checkbox" name="therapy" value="Shockwave"> Shockwave</label>
+                            <label><input type="checkbox" name="therapy" value="Plasma PRP"> Plasma PRP</label>
+			    <label><input type="checkbox" name="therapy" value="Ejercicios"> Ejercicios</label>
+                            <label><input type="checkbox" name="therapy" value="Masajes"> Masajes</label>
+                            <label><input type="checkbox" name="therapy" value="Quiropraxia"> Quiropraxia</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="shortTerm">Objetivos corto plazo</label>
+                        <textarea id="shortTerm"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="longTerm">Objetivos largo plazo</label>
+                        <textarea id="longTerm"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tercera fila: Seguimiento y observaciones -->
+            <div class="form-columns">
+                <div class="form-section" style="flex: 1;">
+                    <h2>SEGUIMIENTO</h2>
+                    <table id="followUpTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">Fecha</th>
+                                <th>Tratamiento</th>
+                                <th>Progreso</th>
+                                <th style="width: 80px;">Próx. cita</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="date"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="date"></td>
+                            </tr>
+                            <tr>                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>                
+                <div class="form-section" style="Text: 1;">    
+                   <div class="form-group" style="margin-top: 10px;">
+                        <label for="therapist">Fisioterapeuta</label>
+                        <input type="text" id="therapist" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-bar">
+                <div>
+                    <button type="button" class="btn-secondary" onclick="searchPatient()">Buscar</button>
+                    <button type="button" class="btn-secondary" onclick="clearForm()">Limpiar</button>
+                </div>
+                <div>
+                    <button type="button" class="btn-primary" onclick="window.print()">Imprimir</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function searchPatient() {
+            const searchTerm = prompt("Ingrese nombre o DNI del paciente:");
+            if (searchTerm) {
+                alert(`Buscando: ${searchTerm}\n(En una aplicación real esto conectaría con una base de datos)`);
+            }
+        }
+        
+        function clearForm() {
+            if (confirm("¿Está seguro que desea limpiar el formulario?")) {
+                document.getElementById("patientForm").reset();
+            }
+        }
+        
+        document.getElementById("patientForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Registro guardado correctamente.");
+        });
+    </script>
+</body>
+</html>
